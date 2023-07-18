@@ -14,7 +14,7 @@ export const getStaticPaths = async () => {
       {
         params: {
           productSlug: 'vault',
-          collectionSlug: 'authenication',
+          collectionSlug: 'authentication',
         },
       },
     ],
