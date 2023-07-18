@@ -1,5 +1,7 @@
 export { Page as default } from "../../../components/page";
 
+export const config = { runtime: "experimental-edge" };
+
 export const getStaticProps = async () => {
   return {
     props: {},
