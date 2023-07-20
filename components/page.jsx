@@ -6,7 +6,7 @@ function PageLink({ path, page, getStaticPaths = false }) {
   const router = useRouter();
 
   const matchesPathname = router.asPath === path;
-  const matchesPage = router.route === page;
+  const matchesRoute = router.route === page;
 
   return (
     <div
@@ -15,7 +15,7 @@ function PageLink({ path, page, getStaticPaths = false }) {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        border: matchesPathname ? "1px solid blue" : "1px solid black",
+        // border: matchesPathname ? "1px solid blue" : "1px solid black",
         padding: "4px",
         marginBottom: "4px",
         borderRadius: "4px",
@@ -34,9 +34,18 @@ function PageLink({ path, page, getStaticPaths = false }) {
         {router.basePath}
         {path}
       </Link>
+      <hr
+        style={{
+          flexGrow: "1",
+          border: "none",
+          height: "1px",
+          background: matchesPathname ? "blue" : "black",
+          margin: "0 20px",
+        }}
+      />
       <span>
         {matchesPathname && <span> (pathname)</span>}
-        {matchesPage && <span> (page)</span>}
+        {matchesRoute && <span> (route)</span>}
         {getStaticPaths && <span> (getStaticPaths)</span>}
       </span>
     </div>
@@ -53,7 +62,11 @@ function LegendItem({ name, children, style = {} }) {
 }
 
 function Header({ children }) {
-  return <h3 style={{ margin: "60px 0 30px" }}>{children}</h3>;
+  return (
+    <h2 style={{ margin: "30px 0 20px", borderBottom: "2px solid black" }}>
+      {children}
+    </h2>
+  );
 }
 
 export function Page() {
@@ -73,7 +86,7 @@ export function Page() {
       </div>
       <div>
         <Header>Pathname</Header>
-        <div>{router.pathname}</div>
+        <div>{router.asPath}</div>
       </div>
       <div>
         <Header>Links</Header>
@@ -108,9 +121,9 @@ export function Page() {
         <Header>Legend</Header>
         <dl>
           <LegendItem name="pathname" style={{ color: "blue" }}>
-            current page matches the pathname
+            current page pathname matches
           </LegendItem>
-          <LegendItem name="page">current page matches the page</LegendItem>
+          <LegendItem name="route">current page route matches</LegendItem>
           <LegendItem name="getStaticPaths">
             page was a listed in getStaticPaths
           </LegendItem>
